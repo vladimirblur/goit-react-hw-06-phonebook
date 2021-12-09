@@ -1,8 +1,12 @@
-import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
+import { useSelector, useDispatch } from "react-redux";
+import { filterChange } from "../../redux/contacts/contacts-actions";
+import { getFilter } from "../../redux/contacts/contacts-selectors";
 import s from "./Filter.module.css";
 
-export default function Filter({ value, onChange }) {
+export default function Filter() {
+  const filter = useSelector(getFilter);
+  const dispatch = useDispatch();
   const filterId = uuidv4();
 
   return (
@@ -13,15 +17,10 @@ export default function Filter({ value, onChange }) {
       <input
         className={s.input}
         type="text"
-        value={value}
+        value={filter}
         id={filterId}
-        onChange={onChange}
+        onChange={(e) => dispatch(filterChange(e.target.value))}
       ></input>
     </div>
   );
 }
-
-Filter.propTypes = {
-  value: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
-};

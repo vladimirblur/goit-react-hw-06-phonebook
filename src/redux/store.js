@@ -1,5 +1,4 @@
-import { createStore } from "redux";
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import {
   persistStore,
   persistReducer,
@@ -11,7 +10,6 @@ import {
   PURGE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import counterReducer from "./counter/counter-reducer";
 import { contactReducer } from "./contacts/contacts-reducer";
 
 const persistConfigContacts = {
@@ -22,7 +20,6 @@ const persistConfigContacts = {
 
 const store = configureStore({
   reducer: {
-    // counter: persistReducer(persistConfigContacts, counterReducer),
     contacts: persistReducer(persistConfigContacts, contactReducer),
   },
   middleware: (getDefaultMiddleware) =>
@@ -35,4 +32,6 @@ const store = configureStore({
 });
 
 const persistor = persistStore(store);
+
+// eslint-disable-next-line import/no-anonymous-default-export
 export default { store, persistor };
