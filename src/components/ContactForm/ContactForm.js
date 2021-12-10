@@ -26,7 +26,7 @@ export default function ContactForm() {
   };
 
   function verifyDuplication() {
-    return contacts.find((contact) => contact.name === name);
+    return contacts.some((contact) => contact.name === name);
   }
 
   const handleSubmit = (e) => {
